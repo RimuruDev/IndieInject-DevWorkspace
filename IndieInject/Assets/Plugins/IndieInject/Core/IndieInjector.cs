@@ -15,9 +15,9 @@
 // **************************************************************** //
 
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+using System.Reflection;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace IndieInject
@@ -56,9 +56,13 @@ namespace IndieInject
         {
             sceneContainer = new DependenciesContainer();
             
-            var providers
-                = root.transform.GetComponentsInChildren<IDependenciesProvider>();
+            var providers = root.transform.GetComponentsInChildren<IDependenciesProvider>();
 
+            foreach (var provider in providers)
+            {
+                Indie.Injector.Inject(provider);
+            }
+            
             Register(providers, sceneContainer);
         }
 
